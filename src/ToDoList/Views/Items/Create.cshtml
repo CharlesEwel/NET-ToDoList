@@ -9,7 +9,10 @@
 <hr />
 <h4>Add a new task</h4>
 @using (Html.BeginForm())
+
 {
+    @Html.HiddenFor(model => model.Done)
+
     @Html.LabelFor(model => model.Description)
     @Html.TextBoxFor(model => model.Description)
 
