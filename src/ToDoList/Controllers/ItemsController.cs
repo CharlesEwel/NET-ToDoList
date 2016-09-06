@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ToDoList.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +18,7 @@ namespace ToDoList.Controllers
 
         public IActionResult Index()
         {
-            return View(db.Items.ToList());
+            return View(db.Items.Include(items => items.Category).ToList());
         }
 
         public IActionResult Details(int id)
@@ -26,6 +29,7 @@ namespace ToDoList.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             return View();
         }
 
@@ -40,6 +44,7 @@ namespace ToDoList.Controllers
         public IActionResult Edit(int id)
         {
             var thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
+            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             return View(thisItem);
         }
 

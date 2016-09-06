@@ -5,11 +5,34 @@
 @model IEnumerable<ToDoList.Models.Item>
 
 <h2>To Do List</h2>
-<h4>@Html.DisplayNameFor(model => model.Description)</h4>
-<ul>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th></th>
+    </tr>
+
     @foreach (var listItem in Model)
     {
-        <li>@Html.DisplayFor(modelItem => listItem.Description) | @Html.ActionLink("Details", "Details", new { id = listItem.ItemId }) | @Html.ActionLink("Edit", "Edit", new { id = listItem.ItemId }) | @Html.ActionLink("Delete", "Delete", new { id = listItem.ItemId })</li>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => listItem.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listItem.Category.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = listItem.ItemId }) | 
+                @Html.ActionLink("Edit", "Edit", new { id = listItem.ItemId }) | 
+                @Html.ActionLink("Delete", "Delete", new { id = listItem.ItemId })
+            </td>
+        </tr>
     }
-</ul>
+
+</table>
 <p>@Html.ActionLink("Add new item", "Create")</p>
