@@ -7,12 +7,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToDoList.Models
 {
-    [Table("Items")]
-    public class Item
+    [Table("Categorizations")]
+    public class Categorization
     {
         [Key]
+        public int CategorizationId { get; set; }
         public int ItemId { get; set; }
-        public string Description { get; set; }
-        public bool Done { get; set; }
-    }
+        public virtual Item Item { get; set; }
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
+    } 
 }

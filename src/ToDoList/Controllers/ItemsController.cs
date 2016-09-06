@@ -18,7 +18,7 @@ namespace ToDoList.Controllers
 
         public IActionResult Index()
         {
-            return View(db.Items.Include(items => items.Category).ToList());
+            return View(db.Items.ToList());
         }
 
         public IActionResult Details(int id)
@@ -29,7 +29,6 @@ namespace ToDoList.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             return View();
         }
 
@@ -44,7 +43,6 @@ namespace ToDoList.Controllers
         public IActionResult Edit(int id)
         {
             var thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
-            ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name");
             return View(thisItem);
         }
 
@@ -70,12 +68,6 @@ namespace ToDoList.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        //public IActionResult MarkDone(int id)
-        //{
-        //    var thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
-        //    return View(thisItem);
-        //}
 
         [HttpPost]
         public IActionResult MarkDone(int id)
