@@ -27,7 +27,12 @@
             <td>
                 @Html.DisplayFor(modelItem => listItem.Category.Name)
             </td>
-            <td>@Html.DisplayFor(modelItem => listItem.Done)</td>
+            <td>@Html.DisplayFor(model => listItem.Done)
+            @using (Html.BeginForm("MarkDone", "Items", new { id = listItem.ItemId }))
+            {
+                <input type="submit" value="Toggle Done" />
+            }
+            </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = listItem.ItemId }) | 
                 @Html.ActionLink("Edit", "Edit", new { id = listItem.ItemId }) | 

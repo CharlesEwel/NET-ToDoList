@@ -70,5 +70,22 @@ namespace ToDoList.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //public IActionResult MarkDone(int id)
+        //{
+        //    var thisItem = db.Items.FirstOrDefault(items => items.ItemId == id);
+        //    return View(thisItem);
+        //}
+
+        [HttpPost]
+        public IActionResult MarkDone(int id)
+        {
+            var item = db.Items.FirstOrDefault(items => items.ItemId == id);
+            db.Entry(item).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            item.Done = (!item.Done);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }
